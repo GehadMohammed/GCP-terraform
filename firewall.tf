@@ -1,6 +1,6 @@
-resource "google_compute_firewall" "default" {
-  name    = "test-firewall"
-  network = google_compute_network.vpc_network.id
+resource "google_compute_firewall" "firewall" {
+  name    = "firewall"
+  network = google_compute_network.vpc.id
 
 
   allow {

@@ -1,11 +1,11 @@
 
 resource "google_container_cluster" "gke-cluster" {
-  name     = "my-gke-cluster"
+  name     = "gke-cluster"
   location = "us-central1"
   remove_default_node_pool = true
   initial_node_count       = 1
-  network                  = google_compute_network.vpc_network.id
-  subnetwork               = google_compute_subnetwork.private-subnetwork.id
+  network                  = google_compute_network.vpc.id
+  subnetwork               = google_compute_subnetwork.restricted-subnet.id
 
   node_locations = [
     "us-central1-b"
@@ -13,7 +13,7 @@ resource "google_container_cluster" "gke-cluster" {
     master_authorized_networks_config {
         
         cidr_blocks{
-            cidr_block = google_compute_subnetwork.public-subnetwork.ip_cidr_range
+            cidr_block = google_compute_subnetwork.management-subnet.ip_cidr_range
             display_name = "managment"
         }
 
@@ -37,7 +37,7 @@ resource "google_container_node_pool" "nodepool" {
   node_config {
     preemptible  = true
     machine_type = "e2-medium"
-    service_account = google_service_account.gke-serviceAccount.email
+    service_account = google_service_account.serviceaccount-gke.email
     oauth_scopes    = [
       "https://www.googleapis.com/auth/cloud-platform"
     ]

@@ -1,7 +1,7 @@
 resource "google_compute_router" "router" {
   name    = "router"
-  region  = google_compute_subnetwork.public-subnetwork.region
-  network = google_compute_network.vpc_network.name
+  region  = google_compute_subnetwork.management-subnet.region
+  network = google_compute_network.vpc.name
 
   bgp {
     asn = 64514

@@ -1,6 +1,6 @@
 
-resource "google_compute_instance" "control-plane" {
-  name         = "vm-01"
+resource "google_compute_instance" "private-vm" {
+  name         = "controle-plan"
   machine_type = "e2-medium"
   zone         = "us-central1-c"
 
@@ -11,12 +11,13 @@ resource "google_compute_instance" "control-plane" {
   }
 
   network_interface {
-    subnetwork = google_compute_subnetwork.public-subnetwork.id
+    subnetwork = google_compute_subnetwork.management-subnet.id
   }
 
   service_account {
-    email  = google_service_account.gke-serviceAccount.email
+    email  = google_service_account.serviceaccount-gke.email
     scopes = ["cloud-platform"]
   }
 
 }
+
