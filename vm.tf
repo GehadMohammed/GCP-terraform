@@ -15,7 +15,7 @@ resource "google_compute_instance" "private-vm" {
   }
 
   service_account {
-    email  = google_service_account.serviceaccount-gke.email
+    email  = google_service_account.gke-serviceAccount.email
     scopes = ["cloud-platform"]
   }
 
